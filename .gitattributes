@@ -1,0 +1,17 @@
+# 默认按文本处理，仓库内统一以 LF 存储（Windows 检出由 core.autocrlf / eol 决定）
+* text=auto
+
+# VBS 是 UTF-16LE + BOM，必须当二进制处理，否则 Git 会把 BOM 或换行改坏导致 wscript 无法运行
+*.vbs -text
+
+# PowerShell / C# 含中文时依赖 BOM，禁止任何换行或编码转换
+*.ps1 -text
+*.cs -text
+*.csproj -text
+
+# 二进制资源
+*.png binary
+*.jpg binary
+*.ico binary
+*.exe binary
+*.dll binary

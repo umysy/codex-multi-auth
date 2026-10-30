@@ -1,0 +1,659 @@
+{
+  "base": "1700000000000 固定基准；resetAtMs 为基准 + resetInMin 分钟",
+  "cases": [
+    {
+      "id": "ok",
+      "desc": "当前号有额度 → OK",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 2,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 40,
+              "windowMinutes": 300,
+              "resetAtMs": 1700007200000
+            },
+            "secondary": {
+              "usedPercent": 20,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 2,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "OK",
+        "targetIndex": null
+      }
+    },
+    {
+      "id": "wait-self",
+      "desc": "5h 剩余 3% 且 20 分钟重置 → WAIT（不切号）",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 2,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 97,
+              "windowMinutes": 300,
+              "resetAtMs": 1700001200000
+            },
+            "secondary": {
+              "usedPercent": 10,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 2,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "WAIT",
+        "targetIndex": null
+      }
+    },
+    {
+      "id": "switch",
+      "desc": "当前号 5h 耗尽且等不起 → SWITCH 到日常号",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 3,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 100,
+              "windowMinutes": 300,
+              "resetAtMs": 1700012000000
+            },
+            "secondary": {
+              "usedPercent": 10,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          },
+          "2": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 20,
+              "windowMinutes": 300,
+              "resetAtMs": 1700009000000
+            },
+            "secondary": {
+              "usedPercent": 50,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700480000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 3,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "SWITCH",
+        "targetIndex": 1,
+        "dryRun": true
+      }
+    },
+    {
+      "id": "reserve-back",
+      "desc": "储备号在用且有日常号恢复 → SWITCH 回切（DryRun 下不执行）",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 3,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 30,
+              "windowMinutes": 300,
+              "resetAtMs": 1700007200000
+            },
+            "secondary": {
+              "usedPercent": 40,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          },
+          "2": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 15,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006600000
+            },
+            "secondary": {
+              "usedPercent": 8,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700366000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 1,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "SWITCH",
+        "targetIndex": 1,
+        "dryRun": true
+      }
+    },
+    {
+      "id": "guard",
+      "desc": "距上次切号 100 秒 → GUARD",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 3,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 100,
+              "windowMinutes": 300,
+              "resetAtMs": 1700012000000
+            },
+            "secondary": {
+              "usedPercent": 10,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          },
+          "2": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 20,
+              "windowMinutes": 300,
+              "resetAtMs": 1700009000000
+            },
+            "secondary": {
+              "usedPercent": 50,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700480000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 3,
+        "dryRun": true,
+        "lastSwitchAtMs": 1699999900000,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "GUARD",
+        "targetIndex": 1
+      }
+    },
+    {
+      "id": "dead",
+      "desc": "所有账号周额度耗尽 → DEAD",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 2,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 100,
+              "windowMinutes": 300,
+              "resetAtMs": 1700012000000
+            },
+            "secondary": {
+              "usedPercent": 100,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700300000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 100,
+              "windowMinutes": 300,
+              "resetAtMs": 1700018000000
+            },
+            "secondary": {
+              "usedPercent": 100,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 2,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "DEAD",
+        "targetIndex": null
+      }
+    },
+    {
+      "id": "disabled",
+      "desc": "autoSwitch=false → DISABLED",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 3,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 100,
+              "windowMinutes": 300,
+              "resetAtMs": 1700012000000
+            },
+            "secondary": {
+              "usedPercent": 10,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          },
+          "2": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 20,
+              "windowMinutes": 300,
+              "resetAtMs": 1700009000000
+            },
+            "secondary": {
+              "usedPercent": 50,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700480000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": false,
+        "minWaitMin": 60,
+        "reserveIndex": 3,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "DISABLED",
+        "targetIndex": 1
+      }
+    },
+    {
+      "id": "skip",
+      "desc": "当前账号没有额度数据 → SKIP",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 2,
+        "quotaByIndex": {
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 2,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "SKIP",
+        "targetIndex": null
+      }
+    },
+    {
+      "id": "warn",
+      "desc": "日常号全部被手动暂停 → WARN",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 3,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 40,
+              "windowMinutes": 300,
+              "resetAtMs": 1700007200000
+            },
+            "secondary": {
+              "usedPercent": 20,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          },
+          "2": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 20,
+              "windowMinutes": 300,
+              "resetAtMs": 1700009000000
+            },
+            "secondary": {
+              "usedPercent": 50,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700480000000
+            }
+          }
+        },
+        "pausedIdx": [
+          1,
+          2
+        ],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 1,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "WARN",
+        "targetIndex": null
+      }
+    },
+    {
+      "id": "cand-wait",
+      "desc": "当前号耗尽、日常号 5h 只需等 30 分钟 → WAIT（不动储备号）",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 2,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 100,
+              "windowMinutes": 300,
+              "resetAtMs": 1700012000000
+            },
+            "secondary": {
+              "usedPercent": 10,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700420000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 100,
+              "windowMinutes": 300,
+              "resetAtMs": 1700001800000
+            },
+            "secondary": {
+              "usedPercent": 20,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 1,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "WAIT",
+        "targetIndex": null
+      }
+    },
+    {
+      "id": "switch-7d",
+      "desc": "当前号 7d 耗尽 → SWITCH（why 用周额度文案）",
+      "input": {
+        "nowMs": 1700000000000,
+        "activeIndex": 0,
+        "accountCount": 2,
+        "quotaByIndex": {
+          "0": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 50,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 98,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700240000000
+            }
+          },
+          "1": {
+            "planType": "plus",
+            "primary": {
+              "usedPercent": 10,
+              "windowMinutes": 300,
+              "resetAtMs": 1700006000000
+            },
+            "secondary": {
+              "usedPercent": 5,
+              "windowMinutes": 10080,
+              "resetAtMs": 1700360000000
+            }
+          }
+        },
+        "pausedIdx": [],
+        "policyPaused": [],
+        "autoSwitch": true,
+        "minWaitMin": 60,
+        "reserveIndex": 2,
+        "dryRun": true,
+        "lastSwitchAtMs": 0,
+        "lastStatus": "",
+        "lastWaitKey": "",
+        "lastWaitLogAtMs": 0
+      },
+      "expect": {
+        "action": "SWITCH",
+        "targetIndex": 1,
+        "dryRun": true
+      }
+    }
+  ],
+  "configCases": [
+    {
+      "id": "config-clamp-high",
+      "input": {
+        "minWaitMin": 99999,
+        "reserveIndex": 0
+      },
+      "expect": {
+        "minWaitMin": 600,
+        "reserveIndex": 1
+      }
+    },
+    {
+      "id": "config-clamp-low",
+      "input": {
+        "minWaitMin": -3,
+        "reserveIndex": "x"
+      },
+      "expect": {
+        "minWaitMin": 60,
+        "reserveIndex": 1
+      }
+    },
+    {
+      "id": "config-autoSwitch",
+      "input": {
+        "autoSwitch": "yes",
+        "minWaitMin": 30
+      },
+      "expect": {
+        "autoSwitch": true,
+        "minWaitMin": 30
+      }
+    }
+  ]
+}

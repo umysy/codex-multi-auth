@@ -1,0 +1,23 @@
+{
+  "name": "codex-multi-auth-panel",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Codex 多账号额度轮转策略与本地控制台（零运行时依赖）",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "syntax": "node scripts/check-syntax.js",
+    "encodings": "node scripts/check-encodings.js",
+    "vbs": "node scripts/check-vbs.js",
+    "frontend": "node scripts/check-frontend-ids.js",
+    "config": "node scripts/check-config-examples.js",
+    "imports": "node scripts/check-imports.js",
+    "test": "node scripts/test.js",
+    "e2e": "node panel/tests/e2e-mock.js",
+    "verify": "npm run syntax && npm run encodings && npm run vbs && npm run frontend && npm run config && npm run imports && npm run privacy && npm test",
+    "dev:panel": "powershell -NoProfile -ExecutionPolicy Bypass -File panel/dev-server.ps1",
+    "privacy": "node scripts/check-publication.js"
+  }
+}

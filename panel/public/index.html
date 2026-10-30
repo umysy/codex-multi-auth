@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="panel-token" content="__PANEL_TOKEN__">
+<title>Codex Quota · 多账号额度控制台</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="aurora"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">Q</div>
+    <div class="brand-text">
+      <div class="brand-title">Codex Quota</div>
+      <div class="brand-sub">多账号额度控制台</div>
+    </div>
+  </div>
+  <div class="topbar-status" id="topbar-status"></div>
+  <div class="topbar-actions">
+    <label class="auto-refresh">
+      <input type="checkbox" id="auto-refresh" checked>
+      <span class="track"><span class="knob"></span></span>
+      <span class="auto-label">自动刷新</span>
+    </label>
+    <button class="btn btn-ghost" id="btn-refresh">
+      <span class="spin-target">刷新额度</span>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="kpis" id="kpis" aria-label="总览"></section>
+  <section class="accounts" id="accounts" aria-label="账号"></section>
+
+  <section class="lower">
+    <div class="panel timeline-panel">
+      <div class="panel-head">
+        <h2>事件时间线</h2>
+        <span class="panel-hint">每 5 分钟由策略脚本写入</span>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <div class="panel policy-panel">
+      <div class="panel-head">
+        <h2>策略</h2>
+        <span class="panel-hint">自动切号规则</span>
+      </div>
+      <div class="policy-body" id="policy-body"></div>
+
+      <div class="panel-head panel-head-sub">
+        <h2>路由</h2>
+        <span class="panel-hint" id="router-hint"></span>
+      </div>
+      <div class="router-body" id="router-body"></div>
+      <div class="router-actions" id="router-actions"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span id="foot-text">正在读取…</span>
+    <span class="foot-dot"></span>
+    <span>策略脚本 · 计划任务 CodexQuotaPolicy</span>
+  </footer>
+</main>
+
+<div class="modal-backdrop" id="modal" hidden>
+  <div class="modal" id="modal-content" role="dialog" aria-modal="true"></div>
+</div>
+<div class="toasts" id="toasts"></div>
+
+<script type="module" src="/app.mjs"></script>
+</body>
+</html>

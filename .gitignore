@@ -1,0 +1,66 @@
+# ---------------- 凭据与账号数据：绝不入库 ----------------
+openai-codex-accounts*.json
+auth.json
+account-policies.json
+panel-config.json
+quota-cache.json
+quota-policy.state.json
+quota-policy.log
+panel-router-state.json
+panel-events.log
+panel-login.state
+panel-open-login.cmd
+first-run-setup.json
+model-discovery.json
+reset-credits.json
+runtime-observability.json
+usage-ledger.jsonl
+
+# ---------------- 运行时目录 ----------------
+app-bind/
+bak-before-custombind/
+runtime-shadow-homes/
+versions/
+/usage/
+inference-activity/
+cache/
+tmp/
+.tmp/
+
+# ---------------- 构建产物 ----------------
+panel/.app-data/
+panel/app/bin/
+panel/app/obj/
+panel/test/desktop-api/bin/
+panel/test/desktop-api/obj/
+panel/test/desktop-rules/bin/
+panel/test/desktop-rules/obj/
+panel/desktop/*.exe
+panel/desktop/*.pdb
+panel/desktop/app-config.json
+panel/desktop/app.log
+panel/desktop/selftest.txt
+
+# ---------------- 临时/备份/测试残留 ----------------
+*.bak
+*.bak.*
+*.bak-*
+*.log
+__*
+!panel/public/__none__
+*.png
+.e2e-profile/
+panel/tests/e2e-fail.png
+
+# ---------------- 编辑器/系统 ----------------
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+node_modules/
+*.protected-*
+panel-errors.jsonl
+account-operations.lock
+panel-cache.json
+.audit/*.txt

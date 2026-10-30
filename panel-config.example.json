@@ -1,0 +1,24 @@
+{
+  "autoSwitch": true,
+  "minWaitMin": 60,
+  "reserveIndex": 1,
+  "allowFailover": true,
+  "rotation": {
+    "mode": "daily-reserve",
+    "daily": [
+      "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    ],
+    "reserve": [
+      "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    ],
+    "waitBeforeSwitchMin": 60,
+    "minGapSec": 600,
+    "shortUsedPercent": 100,
+    "weeklyUsedPercent": 100,
+    "returnToDaily": true,
+    "version": 1,
+    "dailySelection": "cycle",
+    "accountRules": {}
+  }
+}

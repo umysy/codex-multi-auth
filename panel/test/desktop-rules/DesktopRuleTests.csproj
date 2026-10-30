@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../app/Api.cs" Link="Api.cs" />
+    <Compile Include="../../app/PolicyView.cs" Link="PolicyView.cs" />
+    <Compile Include="../../app/UiKit.cs" Link="UiKit.cs" />
+    <Compile Include="../../app/ScrollPage.cs" Link="ScrollPage.cs" />
+    <Compile Include="../../app/PageScroller.cs" Link="PageScroller.cs" />
+    <Compile Include="../../app/AccountDetailView.cs" Link="AccountDetailView.cs" />
+    <Compile Include="../../app/RouterView.cs" Link="RouterView.cs" />
+    <Compile Include="../../app/UsageView.cs" Link="UsageView.cs" />
+    <Compile Include="../../app/RotationEditorControl.cs" Link="RotationEditorControl.cs" />
+  </ItemGroup>
+</Project>

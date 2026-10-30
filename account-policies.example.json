@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "accounts": {
+    "sha256:<account-key-sha256>": {
+      "accountKey": "sha256:<account-key-sha256>",
+      "tags": [],
+      "weight": 1,
+      "priority": 1,
+      "autoPrime": false,
+      "emergencyOnly": true,
+      "paused": false,
+      "drained": false,
+      "note": "示例：备用号，仅在日常号全部耗尽时使用",
+      "updatedAt": 0
+    }
+  }
+}

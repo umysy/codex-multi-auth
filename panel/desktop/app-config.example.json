@@ -1,0 +1,11 @@
+{
+  "NodeExe": "node.exe",
+  "PanelDir": "%USERPROFILE%\\.codex\\multi-auth\\panel",
+  "Url": "http://127.0.0.1:8766/",
+  "CliCmd": "%APPDATA%\\npm\\codex-multi-auth.cmd",
+  "Width": 1500,
+  "Height": 980,
+  "X": -1,
+  "Y": -1,
+  "Maximized": false
+}

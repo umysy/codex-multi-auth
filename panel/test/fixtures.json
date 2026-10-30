@@ -1,0 +1,51 @@
+{
+  "_comment": "policy-core 测试样本：3 个账号，形状取自 仓库运行时生成的 quota-cache.json 的真实数据。窗口里的 resetInMin 是相对 nowMs 的偏移（分钟），测试用 hydrate() 换成绝对 resetAtMs，保证用例不依赖真实时钟。",
+  "nowMs": 1792850400000,
+  "policy": {
+    "autoSwitch": true,
+    "minWaitMin": 60,
+    "minGapSec": 600,
+    "reserveIndex": 1
+  },
+  "accounts": {
+    "gmail": {
+      "index": 0,
+      "no": 1,
+      "label": "gmail (reserve)",
+      "role": "reserve",
+      "planType": "plus",
+      "quota": {
+        "planType": "plus",
+        "status": 200,
+        "primary": { "usedPercent": 0, "windowMinutes": 10080, "resetInMin": 9934.2 },
+        "secondary": { "usedPercent": 0, "windowMinutes": 0 }
+      }
+    },
+    "qq": {
+      "index": 1,
+      "no": 2,
+      "label": "qq",
+      "role": "daily",
+      "planType": "plus",
+      "quota": {
+        "planType": "plus",
+        "status": 429,
+        "primary": { "usedPercent": 100, "windowMinutes": 300, "resetInMin": 23 },
+        "secondary": { "usedPercent": 16, "windowMinutes": 10080, "resetInMin": 883.5 }
+      }
+    },
+    "reserve": {
+      "index": 2,
+      "no": 3,
+      "label": "reserve",
+      "role": "daily",
+      "planType": "plus",
+      "quota": {
+        "planType": "plus",
+        "status": 200,
+        "primary": { "usedPercent": 0, "windowMinutes": 300, "resetInMin": 300 },
+        "secondary": { "usedPercent": 44, "windowMinutes": 10080, "resetInMin": 8800 }
+      }
+    }
+  }
+}

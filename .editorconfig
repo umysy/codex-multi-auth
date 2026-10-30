@@ -1,0 +1,38 @@
+# 统一风格。注意：不同扩展名的编码要求由 scripts/check-encodings.js 强制校验，
+# editorconfig 只负责在编辑器里"默认就写对"。
+
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+[*.{js,json,yml,yaml,html,css,md}]
+indent_style = space
+indent_size = 2
+
+[*.{cs,csproj}]
+indent_style = space
+indent_size = 4
+# C# 含中文注释时必须带 BOM，否则 csc / MSBuild 按 ANSI 解码
+charset = utf-8-bom
+
+[*.ps1]
+indent_style = space
+indent_size = 2
+charset = utf-8-bom
+
+[*.vbs]
+# wscript 只认 ANSI 或 UTF-16LE+BOM；本仓库统一 UTF-16LE + BOM
+charset = utf-16le
+end_of_line = lf
+insert_final_newline = false
+
+[*.manifest]
+indent_style = space
+indent_size = 2
+
+[docs/*.txt]
+insert_final_newline = false
